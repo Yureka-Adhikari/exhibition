@@ -1,6 +1,7 @@
 import tkinter as tk
-from tkinter import messagebox, simpledialog 
+from tkinter import messagebox, simpledialog
 import os
+from datetime import datetime
 
 def create_directory():
     if not os.path.exists('diary_entries'):
@@ -15,32 +16,32 @@ def save_entry():
             safe_title = "".join(c for c in title if c.isalnum() or c in (' ', '_', '-')).rstrip()
             filename = f"diary_entries/{safe_title}.txt"
             count = 1
-            base_filename = filename
             while os.path.exists(filename):
                 filename = f"diary_entries/{safe_title}_{count}.txt"
                 count += 1
             with open(filename, "w", encoding="utf-8") as f:
                 f.write(content)
             messagebox.showinfo("Saved", f"Diary entry '{title}' saved!")
+            text_entry.delete("1.0", tk.END)
 
-        
 def show_entries():
     create_directory()
     entries = os.listdir('diary_entries')
     if not entries:
         messagebox.showinfo("No Entries", "No diary entries found.")
         return
-    
+
     entries_window = tk.Toplevel(root)
     entries_window.title("Diary Entries")
-    entries_window.geometry("400x300")
+    entries_window.geometry("450x350")
+    entries_window.configure(bg="#e6e6fa")
 
-    listbox = tk.Listbox(entries_window, width=50)
-    listbox.pack(pady=10, fill=tk.BOTH, expand=True)
-    
+    listbox = tk.Listbox(entries_window, width=40, font=("Segoe Script", 12), bg="#f3eaff", fg="#6d4c41", bd=2, relief="groove")
+    listbox.pack(pady=15, padx=20, fill=tk.BOTH, expand=True)
+
     for entry in sorted(entries):
         listbox.insert(tk.END, entry)
-        
+
     def display_entry(event):
         selection = listbox.curselection()
         if selection:
@@ -49,30 +50,42 @@ def show_entries():
                 content = f.read()
             content_window = tk.Toplevel(entries_window)
             content_window.title(filename)
-            text = tk.Text(content_window, width=50, height=15)
+            content_window.configure(bg="#e6e6fa")
+            frame = tk.Frame(content_window, bg="#e6e6fa", bd=5, relief="ridge")
+            frame.pack(padx=20, pady=20)
+            label = tk.Label(frame, text=filename, font=("Segoe Script", 14, "bold"), bg="#e6e6fa", fg="#7c5e99")
+            label.pack(pady=(0,10))
+            text = tk.Text(frame, width=40, height=12, font=("Times New Roman", 11), bg="#f3eaff", fg="#6d4c41", bd=2, relief="groove", wrap="word")
             text.pack()
             text.insert(tk.END, content)
             text.config(state=tk.DISABLED)
-            
+
     listbox.bind('<<ListboxSelect>>', display_entry)
 
 root = tk.Tk()
-root.title('Diary')
-root.geometry('400x400')
+root.title('My Scrapbook Diary')
+root.geometry('500x650')
+root.configure(bg="#e6e6fa")
 
-frame = tk.Frame(root)
-frame.pack(expand=True)
+frame = tk.Frame(root, bg="#d6c6f5", bd=10, relief="ridge")
+frame.pack(expand=True, padx=30, pady=30, fill=tk.BOTH)
 
-text_entry = tk.Text(frame, height=15, width=40)
-text_entry.pack(pady=20)
+title_label = tk.Label(frame, text="📔 My Scrapbook Diary 📔", font=("Segoe Script", 20, "bold"), bg="#d6c6f5", fg="#7c5e99")
+title_label.pack(pady=(10, 20))
 
-save_button = tk.Button(frame, text='Save', command=save_entry)
-save_button.pack(pady=5)
+text_entry = tk.Text(frame, height=15, width=45, font=("Times new roman", 12), bg="#f3eaff", fg="#6d4c41", bd=3, relief="groove", wrap="word")
+text_entry.pack(pady=10)
 
-show_button = tk.Button(frame, text='Show Entries', command=show_entries)
-show_button.pack(pady=5)
+button_frame = tk.Frame(frame, bg="#d6c6f5")
+button_frame.pack(pady=10)
 
-quit_button = tk.Button(frame, text='Quit', command=root.quit)
-quit_button.pack(pady=5)
+save_button = tk.Button(button_frame, text='💾 Save', font=("Segoe Script", 12, "bold"), bg="#7c5e99", fg="#f3eaff", width=10, command=save_entry, bd=2, relief="raised", activebackground="#bfa2e6")
+save_button.grid(row=0, column=0, padx=10)
+
+show_button = tk.Button(button_frame, text='📖 Show Entries', font=("Segoe Script", 12, "bold"), bg="#7c5e99", fg="#f3eaff", width=15, command=show_entries, bd=2, relief="raised", activebackground="#bfa2e6")
+show_button.grid(row=0, column=1, padx=10)
+
+quit_button = tk.Button(frame, text='❌ Quit', font=("Segoe Script", 12, "bold"), bg="#7c5e99", fg="#f3eaff", width=10, command=root.quit, bd=2, relief="raised", activebackground="#bfa2e6")
+quit_button.pack(pady=20, anchor="center")
 
 root.mainloop()
