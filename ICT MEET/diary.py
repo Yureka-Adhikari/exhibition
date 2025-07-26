@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox, simpledialog
 import os
 
-PASSWORD = "mysecret"
+PASSWORD = "12345"
 
 def check_password():
     pwd = simpledialog.askstring("Password", "Enter your diary password:", show="*")

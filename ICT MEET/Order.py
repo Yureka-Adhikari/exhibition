@@ -19,7 +19,7 @@ class RestaurantOrderManagement:
             "LUNCH MEAL": 2,
             "BURGER MEAL": 3,
             "PIZZA MEAL": 4,
-            "CHEESE BURDER": 2.5,
+            "CHEESE BURGER": 2.5,
             "DRINKS": 1
         }
         self.exchange_rate = 82
