@@ -1,0 +1,4 @@
+Name: Shyam
+Grades: [59.0, 92.0, 70.0]
+Average: 73.66666666666667
+Grade: C

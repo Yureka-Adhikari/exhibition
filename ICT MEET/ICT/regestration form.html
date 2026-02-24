@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Regestration Form</title>
+</head>
+<body>
+    <h2> Regestration Form </h2>
+    <form> 
+        <fieldset>
+            <legend> Personal Information </legend>
+
+            <label name="Name"> Full Name </label>
+            <input type="text">
+            <br><br>
+            <label name="Email"> Email </label>
+            <input type="email">
+            <br><br>
+            <label name="AGE"> Age</label>
+            <input type="number">
+            <br><br>
+
+            <label name="Gender"> Gender: </label>
+            <input type="radio" name="Gender" value="Male"> Male <br>
+            <input type="radio" name="Gender" value="Female"> Female <br>
+            <input type="radio" name="Gender" value="Other"> Other <br>
+
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend> Academic Information </legend>
+            <label name="Class"> Class : </label>
+            <Select>
+                <option value="1"> 1 </option>
+                <option value="2"> 2 </option>
+                <option value="3"> 3 </option>
+                <option value="4"> 4 </option>
+                <option value="5"> 5 </option>
+                <option value="6"> 6 </option>
+                <option value="7"> 7 </option>
+                <option value="8"> 8 </option>
+                <option value="9"> 9 </option>
+                <option value="10"> 10 </option>
+                <option value="11"> 11 </option>
+                <option value="12"> 12 </option>
+            </Select>
+
+            <br><br>
+            <label name="Interest"> Interest </label>
+            <input type="textarea" name="Interest"><br><br>
+        </fieldset>
+        <br>
+
+        <fieldset>
+            <legend> Security </legend>
+            <label name="Password"> Password </label>
+            <input type="password" name="Password">
+        </fieldset>
+        <br>
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+</body>
+</html>
